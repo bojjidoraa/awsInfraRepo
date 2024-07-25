@@ -42,9 +42,14 @@ resource "aws_security_group" "jenkins-sg-2022" {
   }
 }
 
+// Create Key Pair for Connecting EC2 via SSH
+resource "aws_key_pair" "key_pair" {
+  key_name   = var.key_name
+  public_key = tls_private_key.rsa_4096.public_key_openssh
+}
 resource "aws_instance" "myFirstInstance" {
   ami = "ami-0b8fd93c15b2c81ce"
-  key_name = "mySep22Key"
+  key_name = aws_key_pair.key_pair.key_name
   instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.jenkins-sg-2022.id]
   tags= {
