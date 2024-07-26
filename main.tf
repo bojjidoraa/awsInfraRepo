@@ -47,7 +47,7 @@ resource "aws_instance" "myFirstInstance" {
   instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.jenkins-sg-2022.id]
   tags= {
-    Name = "my-ec2-instance"
+    Name = "cm-ec2-instance"
   }
 }
 
